@@ -29,6 +29,14 @@ public class Pelicula {
     public Pelicula() {
     }
 
+    public Pelicula(String nombre, String categoria) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+    }
+
+    
+    
+
     public Pelicula(int id, String nombre, String categoria) {
         this.id = id;
         this.nombre = nombre;
@@ -142,6 +150,11 @@ public class Pelicula {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    @Override
+    public String toString() {
+        return  nombre;
     }
     
     

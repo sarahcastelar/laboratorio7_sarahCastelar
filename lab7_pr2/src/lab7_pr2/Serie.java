@@ -17,11 +17,16 @@ public class Serie extends Pelicula{
         super();
     }
 
+    public Serie(String nombre, String categoria) {
+        super(nombre, categoria);
+    }
+
+    
+    
+
     public Serie(int id, String nombre, String categoria) {
         super(id, nombre, categoria);
     }
-    
-    
 
     public Serie(int numTemporadas, int id, String nombre, String categoria, int hora, int minutos, int rating, String productora, String director) {
         super(id, nombre, categoria, hora, minutos, rating, productora, director);

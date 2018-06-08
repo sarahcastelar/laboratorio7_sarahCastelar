@@ -58,6 +58,12 @@ public class administrarUsuarios {
                bw.write(t.getContrasena() + ";");
                bw.write(t.getFecha() + ";");
                bw.write(t.getTarjeta()+";");
+                for (Pelicula r : t.getPeliculas()) {
+                    bw.write(r.getNombre() + ",");
+                }
+                for (Serie b : t.getSeries()) {
+                    bw.write(b.getNombre());
+                }
             }
             bw.flush();
         } catch (IOException e) {
@@ -75,9 +81,26 @@ public class administrarUsuarios {
             try {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
-                while (sc.hasNext()) {
-                    listaUsuarios.add(new Usuario(sc.next(), sc.next(), sc.next(), sc.next()));
+                String correo, contrasena, fecha, tarjeta;
+                ArrayList <Pelicula> temp = new ArrayList();
+                ArrayList <Serie> temp2 = new ArrayList();
+                correo = sc.next();
+                contrasena = sc.next();
+                fecha = sc.next();
+                tarjeta = sc.next();
+                Scanner s2 = new Scanner(sc.next());
+                s2.useDelimiter(",");
+                while (s2.hasNext()) {
+                    temp.add(new Pelicula(s2.nextInt(), s2.next(), s2.next()));
                 }
+                Scanner s3 = new Scanner(sc.next());
+                s3.useDelimiter(":");
+                while (s2.hasNext()) {
+                    temp2.add(new Serie(s3.nextInt(), s3.next(), s3.next()));
+                }
+                listaUsuarios.add(new Usuario(correo, contrasena, fecha, tarjeta));
+                listaUsuarios.get(listaUsuarios.size() - 1).setPeliculas(temp);
+                listaUsuarios.get(listaUsuarios.size() - 1).setSeries(temp2);
             } catch (Exception e) {
             }
             sc.close();
