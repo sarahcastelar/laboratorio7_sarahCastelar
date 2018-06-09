@@ -396,19 +396,14 @@ public class UniFlix extends javax.swing.JFrame {
             
         }else 
             JOptionPane.showMessageDialog(this, "No esta registrado.");
-        
-       
     }//GEN-LAST:event_jb_loginMouseClicked
 
     private void jb_registrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_registrarMouseClicked
-        // TODO add your handling code here:
-       
+        // TODO add your handling code
        jd_registrar.setModal(true);
        jd_registrar.pack();
        jd_registrar.setLocationRelativeTo(null);
        jd_registrar.setVisible(true);
-       
-       
     }//GEN-LAST:event_jb_registrarMouseClicked
 
     private void jb_registrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_registrar2ActionPerformed
@@ -439,13 +434,11 @@ public class UniFlix extends javax.swing.JFrame {
 
     private void jb_agregarFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarFavoritosMouseClicked
         // TODO add your handling code here:
-        DefaultListModel m = (DefaultListModel) jl_peliculas.getModel();
         
         
         if (jl_peliculas.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getCategoria();
             int id = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getId();
-            JOptionPane.showMessageDialog(this, "el index de titanic dice que es: " + jl_peliculas.getSelectedIndex());
             ((Usuario)listaUsuarios.get(0)).getPeliculasFav().add(new Pelicula(id, jl_peliculas.getSelectedValue(), categoria)) ;
             administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
             au.cargarArchivo();
@@ -457,7 +450,7 @@ public class UniFlix extends javax.swing.JFrame {
             }
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-            //algo para que se quite lo seleccionado. 
+            jl_peliculas.clearSelection();
            
         } else if (jl_series.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_series.getSelectedIndex()).getCategoria();
@@ -473,7 +466,7 @@ public class UniFlix extends javax.swing.JFrame {
             }
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-            //algo para que se quite lo seleccionado
+            jl_series.clearSelection();
             
         }else if (!esAdmin){
             JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna pelicula o serie. ");

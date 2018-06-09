@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Inspiron
- */
+
 public class administrarUsuarios {
 
     private ArrayList<Usuario> listaUsuarios2 = new ArrayList();
@@ -82,8 +79,6 @@ public class administrarUsuarios {
         }
             bw.close();
             fw.close();
-        System.out.println("2: "+listaUsuarios2);
-        
     }
 
     public void cargarArchivo() {
@@ -116,7 +111,6 @@ public class administrarUsuarios {
             } catch (Exception e) {
             }
             sc.close();
-            System.out.println("1: "+listaUsuarios2);
         }
 
     }
