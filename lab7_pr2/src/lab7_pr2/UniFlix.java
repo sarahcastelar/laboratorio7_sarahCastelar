@@ -439,10 +439,14 @@ public class UniFlix extends javax.swing.JFrame {
         if (jl_peliculas.getSelectedIndex() >= 0) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getCategoria();
             ((Usuario)listaUsuarios.get(0)).getPeliculas().add(new Pelicula(jl_peliculas.getSelectedValue(), categoria)) ;
+            
+            
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
         } else if (jl_series.getSelectedIndex() >= 0) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_peliculas.getSelectedIndex()).getCategoria();
             ((Usuario)listaUsuarios.get(0)).getSeries().add(new Serie(jl_peliculas.getSelectedValue(),categoria));
+            
+            
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
         }else
             JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna pelicula o serie. ");
@@ -467,23 +471,26 @@ public class UniFlix extends javax.swing.JFrame {
         DefaultMutableTreeNode nodo_cruces;//la categoriaaa
         for (Usuario t : listaUsuarios) {
             for (Pelicula r : t.getPeliculas()) {
-                nodo_cruces = new DefaultMutableTreeNode(r.getCategoria());
-                
-                int c = -1;
-                for (int i = 0; i < raiz.getChildCount(); i++) {
-                    if (raiz.getChildAt(i).toString().equals(nodo_cruces)) {
-                        c = 1;
-                        DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                        ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                for (Serie b : t.getSeries()) {
+                    
+                    nodo_cruces = new DefaultMutableTreeNode(r.getCategoria());
+                    int c = -1;
+                    for (int i = 0; i < raiz.getChildCount(); i++) {
+                        if (raiz.getChildAt(i).toString().equals(r.getCategoria())) {
+                            c = 1;
+                            DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                            ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                        }
                     }
-                }
-                if (c == -1) {
-                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(nodo_cruces);
-                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                    n.add(p);
-                    raiz.add(n);
-                }
-                m.reload(); 
+                    if (c == -1) {
+                        DefaultMutableTreeNode n = new DefaultMutableTreeNode(nodo_cruces);
+                        DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                        n.add(p);
+                        raiz.add(n);
+                    }
+                    m.reload();
+            }
+                
             }
         }
         

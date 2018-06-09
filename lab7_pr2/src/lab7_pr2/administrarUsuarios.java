@@ -79,6 +79,7 @@ public class administrarUsuarios {
         listaUsuarios = new ArrayList();
         if (archivo.exists()) {
             try {
+                System.out.println("holaa");
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 String correo, contrasena, fecha, tarjeta;
