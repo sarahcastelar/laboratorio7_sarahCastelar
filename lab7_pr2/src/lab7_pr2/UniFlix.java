@@ -461,31 +461,7 @@ public class UniFlix extends javax.swing.JFrame {
         // TODO add your handling code here: 
         
         
-        
-       /* DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
-            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-            DefaultListModel pelis = (DefaultListModel) jl_peliculas.getModel();
-            DefaultListModel series = (DefaultListModel) jl_series.getModel();
-            int c = -1;
-            
-             for (int i = 0; i < raiz.getChildCount(); i++) {
-                 String nombreCategoria = ((Pelicula) pelis.get(i)).getCategoria();
-                 String nombrePeli = String.valueOf((Pelicula) pelis.get(i));
-                 if(raiz.getChildAt(i).toString().equals(nombreCategoria)){
-                     DefaultMutableTreeNode p = new DefaultMutableTreeNode((Pelicula) pelis.get(i));
-                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
-                    c = 1;
-                 }
-                 
-                 if(c == -1){
-                DefaultMutableTreeNode n = new DefaultMutableTreeNode (nombreCategoria);
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(nombrePeli);
-                n.add(p);
-                raiz.add(n); 
-                } 
-             }    
-             m.reload();
-        */
+   
            DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
         DefaultMutableTreeNode nodo_cruces;//la categoriaaa
@@ -510,6 +486,37 @@ public class UniFlix extends javax.swing.JFrame {
                 m.reload(); 
             }
         }
+        
+        /*
+             
+        DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+            DefaultListModel pelis = (DefaultListModel) jl_peliculas.getModel();
+            DefaultListModel series = (DefaultListModel) jl_series.getModel();
+            int c = -1;
+            
+             for (int i = 0; i < raiz.getChildCount(); i++) {
+                 String nombreCategoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(i).getCategoria();
+                 String nombrePeli = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(i).getCategoria();
+                 System.out.println("nombreCategoria: " + nombreCategoria + "nombrePeli: " + nombrePeli);
+                 JOptionPane.showMessageDialog(this, "nombreCategoria: " + nombreCategoria + "nombrePeli: " + nombrePeli);
+                 
+                 if(raiz.getChildAt(i).toString().equals(nombreCategoria)){
+                     DefaultMutableTreeNode p = new DefaultMutableTreeNode((Pelicula) pelis.get(i));
+                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                    c = 1;
+                 }
+                 
+                 if(c == -1){
+                DefaultMutableTreeNode n = new DefaultMutableTreeNode (nombreCategoria);
+                DefaultMutableTreeNode p = new DefaultMutableTreeNode(nombrePeli);
+                n.add(p);
+                raiz.add(n); 
+                } 
+             }    
+             m.reload();
+        
+        */
         
         
     }//GEN-LAST:event_tb_actualizarTablaMouseClicked
