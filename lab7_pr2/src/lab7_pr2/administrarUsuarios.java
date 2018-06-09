@@ -13,19 +13,27 @@ import java.util.Scanner;
  */
 public class administrarUsuarios {
 
-    private ArrayList<Usuario> listaUsuarios = new ArrayList();
+    private ArrayList<Usuario> listaUsuarios2 = new ArrayList();
     private File archivo = null;
 
     public administrarUsuarios(String path) {
         archivo = new File(path);
     }
 
-    public ArrayList<Usuario> getListaUsuarios() {
-        return listaUsuarios;
+    public ArrayList<Usuario> getListaUsuarios2() {
+        return listaUsuarios2;
     }
 
-    public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
+    public void setListaUsuarios2(ArrayList<Usuario> listaUsuarios2) {
+        this.listaUsuarios2 = listaUsuarios2;
+    }
+    
+    public void setPelicula(int peliId){
+        this.listaUsuarios2.get(0).getPeliculas().add(new Pelicula(peliId));
+    }
+    
+    public void setSerie(int serieId){
+        this.listaUsuarios2.get(0).getSeries().add(new Serie(serieId));
     }
 
     public File getArchivo() {
@@ -37,7 +45,7 @@ public class administrarUsuarios {
     }
 
     public void setUsuario(Usuario p) {
-        this.listaUsuarios.add(p);
+        this.listaUsuarios2.add(p);
     }
 
     
@@ -48,33 +56,41 @@ public class administrarUsuarios {
         try {
             fw = new FileWriter(archivo,false);
             bw = new BufferedWriter(fw);
-            for (Usuario t : listaUsuarios) {
-               bw.write(t.getCorreo() + ";");
-               bw.write(t.getContrasena() + ";");
-               bw.write(t.getFecha() + ";");
-               bw.write(t.getTarjeta()+";");
-                for (Pelicula r : t.getPeliculas()) {
-                    bw.write(r.getNombre() + ",");
+            bw.write("Informacion Usuario: ");
+            bw.newLine();
+            for (Usuario t : listaUsuarios2) {
+               bw.write("Correo: " + t.getCorreo() + ";");
+               bw.write("  Password: "+t.getContrasena() + ";");
+               bw.write("  Fecha Nacimiento: "+t.getFecha() + ";");
+               bw.write("  Numero de Tarjeta: "+t.getTarjeta()+";");
+               bw.newLine();
+               bw.write("ID Peliculas Favoritas: " );
+               bw.newLine();
+                for (Pelicula r : t.getPeliculasFav()) {
+                    bw.write(r.getId() + ",");
                 }
-                for (Serie b : t.getSeries()) {
-                    bw.write(b.getNombre());
+                bw.newLine();
+                bw.write("ID Series Favoritas: ");
+                bw.newLine();
+                for (Serie b : t.getSeriesFav()) {
+                    bw.write(b.getId() + ":");
                 }
+                bw.newLine();
             }
             bw.flush();
         } catch (IOException e) {
         }
             bw.close();
             fw.close();
-        
+        System.out.println("2: "+listaUsuarios2);
         
     }
 
     public void cargarArchivo() {
         Scanner sc = null;
-        listaUsuarios = new ArrayList();
+        listaUsuarios2 = new ArrayList();
         if (archivo.exists()) {
             try {
-                System.out.println("holaa");
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 String correo, contrasena, fecha, tarjeta;
@@ -94,12 +110,13 @@ public class administrarUsuarios {
                 while (s2.hasNext()) {
                     temp2.add(new Serie(s3.nextInt(), s3.next(), s3.next()));
                 }
-                listaUsuarios.add(new Usuario(correo, contrasena, fecha, tarjeta));
-                listaUsuarios.get(listaUsuarios.size() - 1).setPeliculas(temp);
-                listaUsuarios.get(listaUsuarios.size() - 1).setSeries(temp2);
+                listaUsuarios2.add(new Usuario(correo, contrasena, fecha, tarjeta));
+                listaUsuarios2.get(listaUsuarios2.size() - 1).setPeliculas(temp);
+                listaUsuarios2.get(listaUsuarios2.size() - 1).setSeries(temp2);
             } catch (Exception e) {
             }
             sc.close();
+            System.out.println("1: "+listaUsuarios2);
         }
 
     }

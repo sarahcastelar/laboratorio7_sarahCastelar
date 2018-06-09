@@ -19,7 +19,10 @@ public class Usuario {
     private ArrayList <Pelicula> peliculas = new ArrayList();
     private ArrayList <Serie> series = new ArrayList();
     private String tarjeta;
-
+    private ArrayList <Pelicula> peliculasFav = new ArrayList();
+    private ArrayList <Serie> seriesFav = new ArrayList();
+    
+    
     public Usuario() {
     }
 
@@ -84,6 +87,23 @@ public class Usuario {
     public void setTarjeta(String tarjeta) {
         this.tarjeta = tarjeta;
     }
+
+    public ArrayList<Pelicula> getPeliculasFav() {
+        return peliculasFav;
+    }
+
+    public void setPeliculasFav(ArrayList<Pelicula> peliculasFav) {
+        this.peliculasFav = peliculasFav;
+    }
+
+    public ArrayList<Serie> getSeriesFav() {
+        return seriesFav;
+    }
+
+    public void setSeriesFav(ArrayList<Serie> seriesFav) {
+        this.seriesFav = seriesFav;
+    }
+    
     
     
     

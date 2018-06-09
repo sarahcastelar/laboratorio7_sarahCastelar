@@ -28,6 +28,10 @@ public class Pelicula {
 
     public Pelicula() {
     }
+    
+    public Pelicula(int id) {
+        this.id = id;
+    }
 
     public Pelicula(String nombre, String categoria) {
         this.nombre = nombre;

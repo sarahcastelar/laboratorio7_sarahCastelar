@@ -17,6 +17,7 @@ public class UniFlix extends javax.swing.JFrame {
 
     ArrayList <Usuario> listaUsuarios = new ArrayList();
     boolean esAdmin = false;
+    Usuario u;
     
     public UniFlix() {
         initComponents();
@@ -31,7 +32,7 @@ public class UniFlix extends javax.swing.JFrame {
         
     }
 
-    public void pelis(int num){
+    public final void pelis(int num){
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(01, "Titanic", "love", 1, 20, 4, "sofia", "carlos"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(02, "Inifinity War", "accion", 2, 20, 5, "hector", "mario"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(03, "El Padrino", "drama", 2, 20, 4, "jose", "efrain"));
@@ -44,7 +45,7 @@ public class UniFlix extends javax.swing.JFrame {
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(10, "Avengers Era de Ultron", "accion", 1, 20, 4, "sofia", "carlos"));
     }
     
-    public void serie(int num){
+    public final void serie(int num){
         ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(11, "how to get away with a murder", "suspenso"));
         ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(12, "Friends", "comedia"));
         ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(13, "Velvet", "love"));
@@ -413,14 +414,14 @@ public class UniFlix extends javax.swing.JFrame {
     private void jb_registrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_registrar2ActionPerformed
         // TODO add your handling code here:
         administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
-        boolean fueCreado = false;
-        Usuario u = new Usuario(tf_correo.getText(),tf_contrasena.getText(),tf_date.getDateFormatString(),tf_tarjeta.getText());
+        boolean fueCreado;
+         u = new Usuario(tf_correo.getText(),tf_contrasena.getText(),tf_date.getDateFormatString(),tf_tarjeta.getText());
         try {au.cargarArchivo();
             au.setUsuario(u);
             au.escribirArchivo();
             fueCreado = true;
         } catch (IOException ex) {
-            fueCreado = false;
+            fueCreado=false;
         }
         
         if (fueCreado) {
@@ -440,21 +441,40 @@ public class UniFlix extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultListModel m = (DefaultListModel) jl_peliculas.getModel();
         
+        
         if (jl_peliculas.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getCategoria();
-            ((Usuario)listaUsuarios.get(0)).getPeliculas().add(new Pelicula(jl_peliculas.getSelectedValue(), categoria)) ;
-            
+            int id = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getId();
+            JOptionPane.showMessageDialog(this, "el index de titanic dice que es: " + jl_peliculas.getSelectedIndex());
+            ((Usuario)listaUsuarios.get(0)).getPeliculasFav().add(new Pelicula(id, jl_peliculas.getSelectedValue(), categoria)) ;
+            administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
+            au.cargarArchivo();
+            au.getListaUsuarios2().add(u);
+            au.setPelicula(id);
+            try {
+                au.escribirArchivo();
+            } catch (IOException ex) {
+            }
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-            jl_peliculas.setSelectedIndex(0xffffffff);
+            //algo para que se quite lo seleccionado. 
            
         } else if (jl_series.getSelectedIndex() >= 0 && (!esAdmin)) {
-            String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_peliculas.getSelectedIndex()).getCategoria();
-            ((Usuario)listaUsuarios.get(0)).getSeries().add(new Serie(jl_peliculas.getSelectedValue(),categoria));
-            
+            String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_series.getSelectedIndex()).getCategoria();
+            int id = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_series.getSelectedIndex()).getId();
+            ((Usuario)listaUsuarios.get(0)).getSeriesFav().add(new Serie(id, jl_series.getSelectedValue(),categoria));
+            administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
+            au.cargarArchivo();
+            au.getListaUsuarios2().add(u);
+            au.setSerie(id);
+            try {
+                au.escribirArchivo();
+            } catch (IOException ex) {
+            }
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-            jl_peliculas.setSelectedIndex(0xffffffff);
+            //algo para que se quite lo seleccionado
+            
         }else if (!esAdmin){
             JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna pelicula o serie. ");
         }else
@@ -570,10 +590,8 @@ public class UniFlix extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UniFlix().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UniFlix().setVisible(true);
         });
     }
 

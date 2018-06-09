@@ -21,9 +21,10 @@ public class Serie extends Pelicula{
         super(nombre, categoria);
     }
 
+    public Serie(int id) {
+        super(id);
+    }
     
-    
-
     public Serie(int id, String nombre, String categoria) {
         super(id, nombre, categoria);
     }

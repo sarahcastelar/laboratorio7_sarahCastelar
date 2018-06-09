@@ -1,1 +1,6 @@
-sc;1;MM-dd-yyyy;122;
+Informacion Usuario: 
+Correo: sc;  Password: 1;  Fecha Nacimiento: MM-dd-yyyy;  Numero de Tarjeta: 123;
+ID Peliculas Favoritas: 
+1,1,1,
+ID Series Favoritas: 
+
