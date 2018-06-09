@@ -16,6 +16,7 @@ import javax.swing.tree.DefaultTreeModel;
 public class UniFlix extends javax.swing.JFrame {
 
     ArrayList <Usuario> listaUsuarios = new ArrayList();
+    boolean esAdmin = false;
     
     public UniFlix() {
         initComponents();
@@ -24,7 +25,7 @@ public class UniFlix extends javax.swing.JFrame {
         serie(0);
         Login.setModal(true);
         Login.pack();
-        Login.setLocationRelativeTo(this);
+        Login.setLocationRelativeTo(null);
         Login.setVisible(true);
         
         
@@ -365,7 +366,6 @@ public class UniFlix extends javax.swing.JFrame {
     public void cargarLists(){
         DefaultListModel modelo = (DefaultListModel)jl_peliculas.getModel();
         DefaultListModel modelo2 = (DefaultListModel)jl_series.getModel();
-        String pelis="", series="";
         for (Usuario t : listaUsuarios) {
             for (Pelicula r : t.getPeliculas()) {
                 modelo.addElement(r.getNombre() + "\n");
@@ -381,11 +381,13 @@ public class UniFlix extends javax.swing.JFrame {
     
     
     private void jb_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_loginMouseClicked
-   if ((listaUsuarios.get(0).getCorreo() == "sc@gmail.com") && (listaUsuarios.get(0).getContrasena() == "1")) {
+   if ((listaUsuarios.get(0).getCorreo().equals("sc@gmail.com")) && (listaUsuarios.get(0).getContrasena().equals("1"))) {
             JOptionPane.showMessageDialog(this, "Bienvenido adminstrador. ");
             Login.setVisible(false);
             jb_agregarFavoritos.setEnabled(false);
+            jb_verArbol.setEnabled(false);
             cargarLists();
+            esAdmin = true;
         } else if (  (listaUsuarios.get(0).getCorreo().equals(tf_correo2.getText())) && ((listaUsuarios.get(0).getContrasena().equals(tf_contrasena2.getText())))  ){
             JOptionPane.showMessageDialog(this, "Bienvenido! ");
             Login.setVisible(false);
@@ -401,8 +403,8 @@ public class UniFlix extends javax.swing.JFrame {
         // TODO add your handling code here:
        
        jd_registrar.setModal(true);
-       jd_registrar.setLocationRelativeTo(this);
        jd_registrar.pack();
+       jd_registrar.setLocationRelativeTo(null);
        jd_registrar.setVisible(true);
        
        
@@ -436,63 +438,75 @@ public class UniFlix extends javax.swing.JFrame {
 
     private void jb_agregarFavoritosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarFavoritosMouseClicked
         // TODO add your handling code here:
-        if (jl_peliculas.getSelectedIndex() >= 0) {
+        DefaultListModel m = (DefaultListModel) jl_peliculas.getModel();
+        
+        if (jl_peliculas.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getCategoria();
             ((Usuario)listaUsuarios.get(0)).getPeliculas().add(new Pelicula(jl_peliculas.getSelectedValue(), categoria)) ;
             
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-        } else if (jl_series.getSelectedIndex() >= 0) {
+            jl_peliculas.setSelectedIndex(0xffffffff);
+           
+        } else if (jl_series.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_peliculas.getSelectedIndex()).getCategoria();
             ((Usuario)listaUsuarios.get(0)).getSeries().add(new Serie(jl_peliculas.getSelectedValue(),categoria));
             
             
             JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
-        }else
+            jl_peliculas.setSelectedIndex(0xffffffff);
+        }else if (!esAdmin){
             JOptionPane.showMessageDialog(this, "No ha seleccionado ninguna pelicula o serie. ");
+        }else
+            JOptionPane.showMessageDialog(this, "Administrador no agrega peliculas o series favoritas. ");
     }//GEN-LAST:event_jb_agregarFavoritosMouseClicked
 
     private void jb_verArbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_verArbolMouseClicked
         // TODO add your handling code here:
-        jd_arbol.setModal(true);
-        jd_arbol.pack();
-        jd_arbol.setLocationRelativeTo(this);
-        jd_arbol.setVisible(true);
+        if (!esAdmin) {
+            jd_arbol.setModal(true);
+            jd_arbol.pack();
+            jd_arbol.setLocationRelativeTo(null);
+            jd_arbol.setVisible(true);
+        } else 
+            JOptionPane.showMessageDialog(this, "Admin no tiene peliculas o series favoritas. ");
         
     }//GEN-LAST:event_jb_verArbolMouseClicked
 
     private void tb_actualizarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_actualizarTablaMouseClicked
         // TODO add your handling code here: 
-        
+        if (!esAdmin) {
+            DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
+            DefaultMutableTreeNode nodo_cruces;//la categoriaaa
+            for (Usuario t : listaUsuarios) {
+                for (Pelicula r : t.getPeliculas()) {
+                    for (Serie b : t.getSeries()) {
+
+                        nodo_cruces = new DefaultMutableTreeNode(r.getCategoria());
+                        int c = -1;
+                        for (int i = 0; i < raiz.getChildCount(); i++) {
+                            if (raiz.getChildAt(i).toString().equals(r.getCategoria())) {
+                                c = 1;
+                                DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                                ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                            }
+                        }
+                        if (c == -1) {
+                            DefaultMutableTreeNode n = new DefaultMutableTreeNode(nodo_cruces);
+                            DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                            n.add(p);
+                            raiz.add(n);
+                        }
+                        m.reload();
+                    }
+
+                }
+            }
+        } 
         
    
-           DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
-        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-        DefaultMutableTreeNode nodo_cruces;//la categoriaaa
-        for (Usuario t : listaUsuarios) {
-            for (Pelicula r : t.getPeliculas()) {
-                for (Serie b : t.getSeries()) {
-                    
-                    nodo_cruces = new DefaultMutableTreeNode(r.getCategoria());
-                    int c = -1;
-                    for (int i = 0; i < raiz.getChildCount(); i++) {
-                        if (raiz.getChildAt(i).toString().equals(r.getCategoria())) {
-                            c = 1;
-                            DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                            ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
-                        }
-                    }
-                    if (c == -1) {
-                        DefaultMutableTreeNode n = new DefaultMutableTreeNode(nodo_cruces);
-                        DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                        n.add(p);
-                        raiz.add(n);
-                    }
-                    m.reload();
-            }
-                
-            }
-        }
+           
         
         /*
              
