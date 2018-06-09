@@ -1,6 +1,6 @@
 Informacion Usuario: 
-Correo: sc;  Password: 1;  Fecha Nacimiento: MM-dd-yyyy;  Numero de Tarjeta: 133;
+Correo: sc;  Password: 1;  Fecha Nacimiento: MM-dd-yyyy;  Numero de Tarjeta: 1;
 ID Peliculas Favoritas: 
-2,7,
+
 ID Series Favoritas: 
-12:16:
+18:13:

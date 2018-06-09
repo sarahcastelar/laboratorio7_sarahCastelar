@@ -16,9 +16,10 @@ import javax.swing.tree.DefaultTreeModel;
 public class UniFlix extends javax.swing.JFrame {
 
     ArrayList <Usuario> listaUsuarios = new ArrayList();
+    ArrayList <Integer> id1 = new ArrayList();
     boolean esAdmin = false;
     Usuario u;
-    int optionPeli, optionSerie;
+    int optionPeli, optionSerie, cantClicks = 0;
     
     public UniFlix() {
         initComponents();
@@ -29,6 +30,7 @@ public class UniFlix extends javax.swing.JFrame {
         Login.pack();
         Login.setLocationRelativeTo(null);
         Login.setVisible(true);
+        this.setLocationRelativeTo(null);
         
         
     }
@@ -40,23 +42,23 @@ public class UniFlix extends javax.swing.JFrame {
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(04, "La vida es bella", "love", 1, 0, 5, "maria", "fernanda"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(05, "Deadpool", "comedia", 2, 40, 5, "carla", "carl"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(06, "Monster University", "ninos", 1, 50, 5, "carlos", "lina"));
-        ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(07, "500 day of Summer", "love", 1, 20, 5, "anna", "gordon"));
+        ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(07, "500 days of Summer", "love", 1, 20, 5, "anna", "gordon"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(8, "World war z", "accion", 1, 20, 4, "sofia", "carlos"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(9, "Iron Man", "accion", 1, 20, 4, "sofia", "carlos"));
         ((Usuario) listaUsuarios.get(num)).getPeliculas().add(new Pelicula(10, "Avengers Era de Ultron", "accion", 1, 20, 4, "sofia", "carlos"));
     }
     
     public final void serie(int num){
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(11, "how to get away with a murder", "suspenso"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(12, "Friends", "comedia"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(13, "Velvet", "love"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(14, "Velvet Collection", "love"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(15, "Patron del mal", "drama"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(16, "Ricky and Morty", "comedia"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(17, "Spongebob SquarePants", "ninos"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(18, "Jessica Jones", "accion"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(19, "La casa de papel", "drama"));
-        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(20, "Riverdale", "suspenso"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(5,11, "How to get away with a murder", "suspenso",1,20,4,"kevin","nicole"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(4,12, "Friends", "comedia",2,0,4,"scarlett","paulina"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(11,13, "Velvet", "love",1,50,3,"nelsiree","mario"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(2,14, "Velvet Collection", "love",2,4,3,"allison","byran"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(5,15, "Patron del mal", "drama",2,30,4,"alejandro","andrea"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(6,16, "Ricky and Morty", "comedia",0,40,5,"karen","sandy"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(12,17, "Spongebob SquarePants", "ninos",1,0,5,"marcos","tulio"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(9,18, "Jessica Jones", "accion",1,30,3,"daniela","alex"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(4,19, "La casa de papel", "drama",1,20,4,"ana","cristina"));
+        ((Usuario) listaUsuarios.get(num)).getSeries().add(new Serie(3,20, "Riverdale", "suspenso",2,30,2,"delmis","jose"));
     }
     
     @SuppressWarnings("unchecked")
@@ -129,13 +131,19 @@ public class UniFlix extends javax.swing.JFrame {
         jd_registrarLayout.setHorizontalGroup(
             jd_registrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jd_registrarLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addGroup(jd_registrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(77, 77, 77)
+                .addGroup(jd_registrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jd_registrarLayout.createSequentialGroup()
+                        .addGroup(jd_registrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(jd_registrarLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jd_registrarLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)))
                 .addGroup(jd_registrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tf_correo)
                     .addComponent(tf_contrasena)
@@ -211,7 +219,7 @@ public class UniFlix extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_arbolLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(tb_actualizarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
+                .addGap(43, 43, 43))
         );
         jd_arbolLayout.setVerticalGroup(
             jd_arbolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,33 +528,44 @@ public class UniFlix extends javax.swing.JFrame {
         if (jl_peliculas.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getCategoria();
             int id = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(jl_peliculas.getSelectedIndex()).getId();
-            ((Usuario)listaUsuarios.get(0)).getPeliculasFav().add(new Pelicula(id, jl_peliculas.getSelectedValue(), categoria)) ;
-            administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
-            au.cargarArchivo();
-            au.getListaUsuarios2().add(u);
-            au.setPelicula(id);
-            try {
-                au.escribirArchivo();
-            } catch (IOException ex) {
-            }
+            if (!id1.contains(id)) {
+                id1.add(id);
+                ((Usuario) listaUsuarios.get(0)).getPeliculasFav().add(new Pelicula(id, jl_peliculas.getSelectedValue(), categoria));
+                administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
+                au.cargarArchivo();
+                au.getListaUsuarios2().add(u);
+                au.setPelicula(id);
+                try {
+                    au.escribirArchivo();
+                } catch (IOException ex) {
+                }
+
+                JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
+            }else
+                JOptionPane.showMessageDialog(this, "La pelicula seleccionada ya esta en sus favoritos.");
             
-            JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
             jl_peliculas.clearSelection();
            
         } else if (jl_series.getSelectedIndex() >= 0 && (!esAdmin)) {
             String categoria = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_series.getSelectedIndex()).getCategoria();
             int id = ((Usuario) listaUsuarios.get(0)).getSeries().get(jl_series.getSelectedIndex()).getId();
-            ((Usuario)listaUsuarios.get(0)).getSeriesFav().add(new Serie(id, jl_series.getSelectedValue(),categoria));
-            administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
-            au.cargarArchivo();
-            au.getListaUsuarios2().add(u);
-            au.setSerie(id);
-            try {
-                au.escribirArchivo();
-            } catch (IOException ex) {
-            }
+            if (!id1.contains(id)) {
+                id1.add(id);
+                ((Usuario) listaUsuarios.get(0)).getSeriesFav().add(new Serie(id, jl_series.getSelectedValue(), categoria));
+                administrarUsuarios au = new administrarUsuarios("./progra2/usuarios.txt");
+                au.cargarArchivo();
+                au.getListaUsuarios2().add(u);
+                au.setSerie(id);
+                try {
+                    au.escribirArchivo();
+                } catch (IOException ex) {
+                }
+
+                JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
+            }else
+                JOptionPane.showMessageDialog(this, "La serie seleccionada ya esta en sus favoritos.");
             
-            JOptionPane.showMessageDialog(this, "se agrego a favoritos existosamente. ");
+            
             jl_series.clearSelection();
             
         }else if (!esAdmin){
@@ -558,6 +577,7 @@ public class UniFlix extends javax.swing.JFrame {
     private void jb_verArbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_verArbolMouseClicked
         // TODO add your handling code here:
         if (!esAdmin) {
+            tb_actualizarTabla.setEnabled(true);
             jd_arbol.setModal(true);
             jd_arbol.pack();
             jd_arbol.setLocationRelativeTo(null);
@@ -568,72 +588,76 @@ public class UniFlix extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_verArbolMouseClicked
 
     private void tb_actualizarTablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_actualizarTablaMouseClicked
-        // TODO add your handling code here: 
-        if (!esAdmin) {
+        // TODO add your handling code here:
+        //try{
+        if (!esAdmin) { 
+            
+            String categ, name;
             DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-            DefaultMutableTreeNode nodo_cruces;//la categoriaaa
-            for (Usuario t : listaUsuarios) {
-                for (Pelicula r : t.getPeliculas()) {
-                    for (Serie b : t.getSeries()) {
-
-                        nodo_cruces = new DefaultMutableTreeNode(r.getCategoria());
-                        int c = -1;
-                        for (int i = 0; i < raiz.getChildCount(); i++) {
-                            if (raiz.getChildAt(i).toString().equals(r.getCategoria())) {
-                                c = 1;
-                                DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                                ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
-                            }
-                        }
-                        if (c == -1) {
-                            DefaultMutableTreeNode n = new DefaultMutableTreeNode(nodo_cruces);
-                            DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
-                            n.add(p);
-                            raiz.add(n);
-                        }
-                        m.reload();
-                    }
-
-                }
-            }
-        } 
-        
-   
-           
-        
-        /*
-             
-        DefaultTreeModel m = (DefaultTreeModel) arbol.getModel();
-            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) m.getRoot();
-            DefaultListModel pelis = (DefaultListModel) jl_peliculas.getModel();
-            DefaultListModel series = (DefaultListModel) jl_series.getModel();
-            int c = -1;
             
-             for (int i = 0; i < raiz.getChildCount(); i++) {
-                 String nombreCategoria = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(i).getCategoria();
-                 String nombrePeli = ((Usuario) listaUsuarios.get(0)).getPeliculas().get(i).getCategoria();
-                 System.out.println("nombreCategoria: " + nombreCategoria + "nombrePeli: " + nombrePeli);
-                 JOptionPane.showMessageDialog(this, "nombreCategoria: " + nombreCategoria + "nombrePeli: " + nombrePeli);
-                 
-                 if(raiz.getChildAt(i).toString().equals(nombreCategoria)){
-                     DefaultMutableTreeNode p = new DefaultMutableTreeNode((Pelicula) pelis.get(i));
-                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
-                    c = 1;
-                 }
-                 
-                 if(c == -1){
-                DefaultMutableTreeNode n = new DefaultMutableTreeNode (nombreCategoria);
-                DefaultMutableTreeNode p = new DefaultMutableTreeNode(nombrePeli);
-                n.add(p);
-                raiz.add(n); 
-                } 
-             }    
-             m.reload();
-        
-        */
-        
-        
+            for (Pelicula t : ((Usuario)listaUsuarios.get(0)).getPeliculasFav()) {
+                int c = -1;
+
+                for (int i = 0; i < raiz.getChildCount(); i++) {
+                    if (raiz.getChildAt(i).toString().equals(t.getCategoria())) {
+                        for (int j = 0; j < raiz.getChildAt(i).getChildCount(); j++) {
+                          if (raiz.getChildAt(i).getChildAt(j).toString().equals(t.getNombre())) {
+                            c=2;
+                           }   
+                        }  
+                        if (c==2) {
+                            break;
+                        }  DefaultMutableTreeNode p = new DefaultMutableTreeNode(t.getNombre());
+                        ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                        c = 1;
+                    }
+                }
+
+                if (c == -1) {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(t.getCategoria());
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(t.getNombre());
+                    n.add(p);
+                    raiz.add(n);
+                }
+                m.reload();
+            }
+            
+            
+            for (Serie r : ((Usuario)listaUsuarios.get(0)).getSeriesFav()) {
+                int c = -1;
+                for (int i = 0; i < raiz.getChildCount(); i++) {
+                    if (raiz.getChildAt(i).toString().equals(r.getCategoria())) {
+                        for (int j = 0; j < raiz.getChildAt(i).getChildCount(); j++) {
+                          if (raiz.getChildAt(i).getChildAt(j).toString().equals(r.getNombre())) {
+                            c=2;
+                           }   
+                        } 
+                        
+                        if (c==2) {
+                            break;
+                        }
+                        
+                        DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                        ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                        c = 1;
+                    }
+                }
+
+                if (c == -1) {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(r.getCategoria());
+                    DefaultMutableTreeNode p = new DefaultMutableTreeNode(r.getNombre());
+                    n.add(p);
+                    raiz.add(n);
+                }
+                m.reload();
+            }
+            
+        }
+            tb_actualizarTabla.setEnabled(false);
+                    
+        //}catch (Exception e){
+        //}
     }//GEN-LAST:event_tb_actualizarTablaMouseClicked
 
     private void jl_peliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_peliculasMouseClicked
